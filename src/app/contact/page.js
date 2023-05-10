@@ -57,7 +57,7 @@ const Contact = () => {
                   name="name"
                   placeholder="Enter Your Name"
                   required
-                  className="text-white"
+                  className="text-teal-800 bg-black"
                 />
 
                 <label>Enter Your Email</label>
@@ -66,7 +66,7 @@ const Contact = () => {
                   name="email"
                   placeholder="Enter Your Email"
                   required
-                  className="text-white"
+                  className="text-teal-800 bg-black"
                 />
 
                 <label>Enter Your Message</label>
@@ -75,7 +75,7 @@ const Contact = () => {
                   name="message"
                   placeholder="Enter Your Message"
                   required
-                  className="text-white"
+                  className="text-teal-800 bg-black"
                 />
 
                 <div>
