@@ -1,7 +1,30 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import { redirect } from "next/navigation";
+import submitContact from "./action";
 
 const Contact = () => {
+  const [status, setStatus] = useState(null);
+  const handleSubmit = async (formData) => {
+    try {
+      const response = await submitContact({
+        name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+      });
+
+      alert("Message Sent");
+
+      // if (response.status === 200) {
+      //   setStatus("success");
+      // } else {
+      //   setStatus("error");
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <section className="text-gray-600 body-font relative">
@@ -19,7 +42,6 @@ const Contact = () => {
             ></iframe>
           </div>
           <div className="rounded lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-            <h2 className="text-2xl text-slate-800 text-center">Contact Me!</h2>
             <Image
               src="/contact_me.jpg"
               alt="Pic"
@@ -27,11 +49,57 @@ const Contact = () => {
               height={200}
               className="mx-auto my-2"
             />
-            <h3 className="text-xl text-slate-900 text-center mt-2">Amann</h3>
-            <p className="text-xl text-slate-800 text-center">The Programmer</p>
-            <p className="text-xl text-slate-800 text-center mt-3">
-              Email : yadavaman413@gmail.com
-            </p>
+            <form action={handleSubmit}>
+              <div className="flex flex-col p-2 space-y-2 bg-slate-400 rounded-sm">
+                <label>Enter Your Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter Your Name"
+                  required
+                  className="text-white"
+                />
+
+                <label>Enter Your Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter Your Email"
+                  required
+                  className="text-white"
+                />
+
+                <label>Enter Your Message</label>
+                <textarea
+                  type="text"
+                  name="message"
+                  placeholder="Enter Your Message"
+                  required
+                  className="text-white"
+                />
+
+                <div>
+                  {status === "success" && (
+                    <p className={styles.success_msg}>
+                      Thank you for your message!
+                    </p>
+                  )}
+                  {status === "error" && (
+                    <p className={styles.error_msg}>
+                      There is an error in submitting your message. Please try
+                      again.
+                    </p>
+                  )}
+
+                  <button
+                    className="p-2 bg-red-500 cursor-pointer rounded-sm hover:bg-amber-400 hover:text-black text-xl text-white font-semibold"
+                    type="submit"
+                  >
+                    Send
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </section>
